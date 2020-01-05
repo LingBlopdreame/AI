@@ -65,4 +65,3 @@
     -----创建已知分布的张量
         |-- tf.random.normal(shape, mean=0.0, stddev=1.0)  形状为 shape，均值为mean，标准差为 stddev 的正态分布𝒩(mean, stddev2)
         |--tf.random.uniform(shape, minval=0, maxval=None, dtype=tf.float32)  创建采样自[minval, maxval)区间的均匀分布的张量
-        
