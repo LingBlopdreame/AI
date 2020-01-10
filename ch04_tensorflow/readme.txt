@@ -63,5 +63,47 @@
         |--tf.fill([shape], value)
         |
     -----创建已知分布的张量
-        |-- tf.random.normal(shape, mean=0.0, stddev=1.0)  形状为 shape，均值为mean，标准差为 stddev 的正态分布𝒩(mean, stddev2)
+        |--tf.random.normal(shape, mean=0.0, stddev=1.0)  形状为 shape，均值为mean，标准差为 stddev 的正态分布𝒩(mean, stddev2)
         |--tf.random.uniform(shape, minval=0, maxval=None, dtype=tf.float32)  创建采样自[minval, maxval)区间的均匀分布的张量
+
+4.4.5 创建序列
+    -----在循环计算或者对张量进行索引时，经常需要创建一段连续的整型序列
+        |--tf.range(limit, delta=1)  创建[0, limit)之间,步长为 delta 的整型序列,不包含 limit 本身
+
+4.6 切片
+    -----通过start: end: step切片方式可以方便地提取一段数据
+
+4.7 维度变换
+
+4.7.1 改变视图
+    -----不改变数据的储存顺序,只改变对数据含义的理解
+        |--tf.reshape(x, [new shape])
+
+4.7.2 增删维度
+    -----增加维度
+        |--增加一个长度为 1 的维度,维度长度为 1,故数据并不需要改变,仅仅是改变数据的理解方式.
+        |--tf.expand_dims(x, axis)  在指定的 axis 轴前可以插入一个新的维度,axis 为正时,表示在当前维度之前插入一个新维度;为负时,表示当前维度之后插入一个新的维度
+
+    -----删除维度
+        |--删除维度只能删除长度为 1 的维度,也不会改变张量的存储
+        |--tf.squeeze(x, axis)  axis 参数为待删除的维度的索引号,如果不指定维度参数 axis,即 tf.squeeze(x),那么它会默认删除所有长度为 1 的维度
+
+4.7.3 交换维度(Transpose)
+    -----直接调整的存储顺序
+        |--tf.transpose(x, perm)  perm表示新维度的顺序 List
+
+4.7.4 复制数据
+    -----在新的维度上面复制若干份数据
+        |--tf.tile(x, multiples)  在指定维度上的复制操作,multiples 分别指定了每个维度上面的复制倍数,对应位置为 1 表明不复制,为 2 表明新长度为原来长度的2 倍,即数据复制一份
+
+4.8 Broadcasting
+    -----自动扩展机制(广播机制)
+        |--通过优化手段避免实际复制数据而完成逻辑运算,节省了大量计算资源,建议在运算过程中尽可能地利用 Broadcasting 机制提高计算效率
+        |--tf.broadcast_to(x, new_shape)
+
+    -----普适性(核心思想)
+        |--先右对齐,对于长度为 1 的维度,默认这个数据普遍适合于当前维度的其他位置;对于不存在的维度，则在增加新维度后默认当前数据也是普适于新维度的
+
+4.9 数学运算
+
+
