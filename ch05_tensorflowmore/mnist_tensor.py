@@ -34,7 +34,7 @@ def preprocess(x, y):
 (x, y), (x_test, y_test) = datasets.mnist.load_data()
 print('x:', x.shape, 'y:', y.shape, 'x test:', x_test.shape, 'y test:', y_test.shape)
 #%%
-batchsz = 512
+batchsz = 64
 train_db = tf.data.Dataset.from_tensor_slices((x, y))
 train_db = train_db.shuffle(1000)
 train_db = train_db.batch(batchsz)
@@ -105,7 +105,7 @@ def main():
             print(step, 'loss:', float(loss))
             losses.append(float(loss))
  
-        if step %80 == 0:
+        if step % 80 == 0:
             # evaluate/test
             total, total_correct = 0., 0
 
@@ -132,21 +132,24 @@ def main():
 
             accs.append(total_correct/total)
 
+        # if step == 9000:
+        #     break
 
     plt.figure()
     x = [i*80 for i in range(len(losses))]
-    plt.plot(x, losses, color='C0', marker='s', label='训练')
+    plt.plot(x, losses, label='train')
     plt.ylabel('MSE')
     plt.xlabel('Step')
     plt.legend()
     plt.savefig('train.svg')
 
     plt.figure()
-    plt.plot(x, accs, color='C1', marker='s', label='测试')
-    plt.ylabel('准确率')
+    plt.plot(x, accs, label='test')
+    plt.ylabel('zuiquelu')
     plt.xlabel('Step')
     plt.legend()
     plt.savefig('test.svg')
+    plt.show()
 
 if __name__ == '__main__':
     main()
