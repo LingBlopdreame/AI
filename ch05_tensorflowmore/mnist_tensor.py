@@ -34,7 +34,7 @@ def preprocess(x, y):
 (x, y), (x_test, y_test) = datasets.mnist.load_data()
 print('x:', x.shape, 'y:', y.shape, 'x test:', x_test.shape, 'y test:', y_test.shape)
 #%%
-batchsz = 64
+batchsz = 512
 train_db = tf.data.Dataset.from_tensor_slices((x, y))
 train_db = train_db.shuffle(1000)
 train_db = train_db.batch(batchsz)
@@ -56,7 +56,7 @@ print('train sample:', x.shape, y.shape)
 def main():
 
     # learning rate
-    lr = 1e-2
+    lr = 0.4
     accs,losses = [], []
 
 
@@ -142,6 +142,7 @@ def main():
     plt.xlabel('Step')
     plt.legend()
     plt.savefig('train.svg')
+    plt.show()
 
     plt.figure()
     plt.plot(x, accs, label='test')
