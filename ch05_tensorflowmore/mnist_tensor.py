@@ -34,7 +34,7 @@ def preprocess(x, y):
 (x, y), (x_test, y_test) = datasets.mnist.load_data()
 print('x:', x.shape, 'y:', y.shape, 'x test:', x_test.shape, 'y test:', y_test.shape)
 #%%
-batchsz = 512
+batchsz = 800
 train_db = tf.data.Dataset.from_tensor_slices((x, y))
 train_db = train_db.shuffle(1000)
 train_db = train_db.batch(batchsz)
@@ -104,7 +104,7 @@ def main():
         if step % 80 == 0:
             print(step, 'loss:', float(loss))
             losses.append(float(loss))
- 
+
         if step % 80 == 0:
             # evaluate/test
             total, total_correct = 0., 0
